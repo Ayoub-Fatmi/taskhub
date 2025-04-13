@@ -2,8 +2,8 @@ import { Task } from "../types/Task";
 
 type TaskCardProps = {
   task: Task;
-  onStatusChange: (taskId: number, newStatus: Task["status"]) => void;
-  onDeleteClick: (taskId: number) => void;
+  onStatusChange: (taskId: string, newStatus: Task["status"]) => void;
+  onDeleteClick: (taskId: string) => void;
 };
 
 export const TaskCard = ({ task, onStatusChange, onDeleteClick }: TaskCardProps) => (

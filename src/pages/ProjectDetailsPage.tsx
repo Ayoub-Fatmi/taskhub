@@ -1,4 +1,3 @@
-// pages/ProjectDetails.tsx
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/usefetch";
@@ -18,7 +17,7 @@ function ProjectDetailsPage() {
     const { projectId } = useParams<{ projectId: string }>();
   const [statusFilter, setStatusFilter] = useState<"all" | Task["status"]>("all");
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
-  const [taskToDelete, setTaskToDelete] = useState<number | null>(null);
+  const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
 
   const {
     data: project,
@@ -45,7 +44,7 @@ function ProjectDetailsPage() {
   }) => {
     try {
       await addTask({
-        projectId: Number(projectId),
+        projectId: projectId || "",
         ...task,
         status: "to_do",
       });
@@ -56,7 +55,7 @@ function ProjectDetailsPage() {
     }
   };
 
-  const handleStatusChange = async (taskId: number, newStatus: Task["status"]) => {
+  const handleStatusChange = async (taskId: string, newStatus: Task["status"]) => {
     try {
       await updateTaskStatus(taskId, newStatus);
       refetchTasks();
@@ -141,7 +140,6 @@ function ProjectDetailsPage() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            {/* Project Header */}
             <div className="mb-8 bg-white p-6 rounded-lg shadow">
                 <h1 className="text-3xl font-bold mb-2">{project?.name}</h1>
                 <p className="text-gray-600 mb-4">{project?.description}</p>

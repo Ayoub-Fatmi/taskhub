@@ -3,8 +3,8 @@ import { TaskCard } from "./TaskCard";
 
 type TaskListProps = {
   tasks: Task[];
-  onStatusChange: (taskId: number, newStatus: Task["status"]) => void;
-  onDeleteClick: (taskId: number) => void;
+  onStatusChange: (taskId: string, newStatus: Task["status"]) => void;
+  onDeleteClick: (taskId: string) => void;
 };
 
 export const TaskList = ({ tasks, onStatusChange, onDeleteClick }: TaskListProps) => {
