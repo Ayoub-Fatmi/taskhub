@@ -25,7 +25,7 @@
       "projectId": 1,
       "title": "Design homepage mockup",
       "description": "Create a mockup for the new homepage design",
-      "status": "completed",
+      "status": "to_do",
       "priority": "high",
       "createdAt": "2023-05-15T10:30:00Z"
     },
@@ -34,7 +34,7 @@
       "projectId": 1,
       "title": "Implement responsive navbar",
       "description": "Create a responsive navigation bar for the website",
-      "status": "in_progress",
+      "status": "completed",
       "priority": "medium",
       "createdAt": "2023-05-20T14:30:00Z"
     },
