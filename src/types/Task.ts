@@ -1,11 +1,9 @@
-interface Task {
-    id: number
-    projectId: number
-    title: string
-    description: string
-    status: string
-    priority: string
-    createdAt: string
-}
-
-export default Task;
+export type Task = {
+    id: number;
+    projectId: number;
+    title: string;
+    description: string;
+    status: "to_do" | "in_progress" | "completed";
+    priority: "low" | "medium" | "high";
+    createdAt: string;
+  };
