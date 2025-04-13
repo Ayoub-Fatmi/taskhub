@@ -10,14 +10,12 @@ const DashboardPage = () => {
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
 
-  // Calculate statistics
   const totalProjects = projects.length;
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter(task => task.status === 'completed').length;
   const inProgressTasks = tasks.filter(task => task.status === 'in_progress').length;
   const todoTasks = tasks.filter(task => task.status === 'to_do').length;
 
-  // Calculate projects with stats
   const projectsWithStats = projects.map(project => {
     const projectTasks = tasks.filter(task => task.projectId === project.id);
     return {

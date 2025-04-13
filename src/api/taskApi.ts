@@ -1,12 +1,12 @@
 const API_BASE_URL = "http://localhost:3001";
 
-export const fetchTasksByProject = async (projectId: string) => {
-  const response = await fetch(`${API_BASE_URL}/tasks?projectId=${projectId}`);
-  if (!response.ok) {
-    throw new Error("Failed to fetch tasks");
-  }
-  return await response.json();
-};
+// export const fetchTasksByProject = async (projectId: string) => {
+//   const response = await fetch(`${API_BASE_URL}/tasks?projectId=${projectId}`);
+//   if (!response.ok) {
+//     throw new Error("Failed to fetch tasks");
+//   }
+//   return await response.json();
+// };
 
 export const addTask = async (task: {
   projectId: string;

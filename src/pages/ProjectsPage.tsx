@@ -3,6 +3,10 @@ import useFetch from "../hooks/usefetch";
 import ProjectForm from "../components/ProjectForm";
 import ProjectCard from "../components/ProjectCard";
 import DeleteModal from "../components/DeleteModal";
+import {
+    addProject,
+    deleteProject
+} from '../api/projectApi';
 
 type Project = {
     id: number;
@@ -12,30 +16,32 @@ type Project = {
 };
 
 function ProjectsPage() {
-    const { data: projects, isLoading, error, refetch } = useFetch<Project[]>("http://localhost:3001/projects");
-
     const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
 
+
+    const { data: projects, isLoading, error, refetch } = useFetch<Project[]>("http://localhost:3001/projects");
+
+
     const handleCreateProject = async (name: string, description: string) => {
-        await fetch("http://localhost:3001/projects", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name,
-                description,
-                createdAt: new Date().toISOString(),
-            }),
-        });
-        refetch();
+        try {
+            await addProject({ name, description });
+            refetch();
+        } catch (err) {
+            console.error("Failed to create project:", err);
+            // To modify the ui
+        }
     };
 
     const handleConfirmDelete = async () => {
         if (!projectToDelete) return;
-        await fetch(`http://localhost:3001/projects/${projectToDelete.id}`, {
-            method: "DELETE",
-        });
-        setProjectToDelete(null);
-        refetch();
+        try {
+            await deleteProject(projectToDelete.id.toString()); 
+            setProjectToDelete(null);
+            refetch();
+        } catch (err) {
+            console.error("Failed to delete project:", err);
+            // to modify the ui
+        }
     };
 
     if (isLoading) {

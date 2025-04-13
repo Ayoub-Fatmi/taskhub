@@ -9,7 +9,6 @@ function App() {
 
   return (
     <div className="app">
-    {/* <Header /> */}
     <Layout>
       <Routes>
         <Route path="/" element={<DashboardPage />} />
@@ -17,7 +16,6 @@ function App() {
         <Route path="/projects/:projectId" element={<ProjectTasksPage />} />
       </Routes>
     </Layout>
-    {/* <Footer /> */}
   </div>
   )
 }
