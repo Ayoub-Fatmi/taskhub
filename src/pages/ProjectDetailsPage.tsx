@@ -146,7 +146,7 @@ function ProjectDetailsPage() {
       />
 
       <div>
-        <h2 className="text-2xl font-semibold mb-4">
+        <h2 className="text-2xl font-semibold mb-4 dark:text-white">
           Tasks ({filteredTasks?.length})
         </h2>
         <TaskList

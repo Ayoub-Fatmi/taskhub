@@ -12,7 +12,6 @@ export const DeleteConfirmationModal = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        {/* Background overlay */}
         <div 
           className="fixed inset-0 transition-opacity" 
           aria-hidden="true"
@@ -21,14 +20,12 @@ export const DeleteConfirmationModal = ({
           <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
         </div>
         
-        {/* Modal container */}
         <span 
           className="hidden sm:inline-block sm:align-middle sm:h-screen" 
           aria-hidden="true"
         >&#8203;</span>
         
         <div className="inline-block align-bottom bg-white dark:bg-gray-800 rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
-          {/* Header */}
           <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700 flex items-center">
             <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-red-100 dark:bg-red-900/20">
               <svg 
@@ -55,7 +52,6 @@ export const DeleteConfirmationModal = ({
             </div>
           </div>
           
-          {/* Body */}
           <div className="px-6 py-4">
             <p className="text-gray-700 dark:text-gray-300">
               Are you sure you want to delete <span className="font-semibold text-gray-900 dark:text-white">"{DeletedItem}"</span>? 
@@ -63,7 +59,6 @@ export const DeleteConfirmationModal = ({
             </p>
           </div>
           
-          {/* Footer */}
           <div className="px-6 py-4 bg-gray-50 dark:bg-gray-700/30 rounded-b-xl flex justify-end space-x-3">
             <button
               type="button"
