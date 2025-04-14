@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Project  from '../types/Project';
+import Project  from '../../types/Project';
 
 type ProjectsTableProps = {
   projects: (Project & {

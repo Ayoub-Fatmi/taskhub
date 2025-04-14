@@ -6,10 +6,10 @@ import {
     updateTaskStatus,
     deleteTask,
 } from "../api/taskApi";
-import { StatusFilter } from "../components/StatusFilter";
-import { TaskList } from "../components/TaskList";
-import { AddTaskModal } from "../components/AddTaskModal";
-import { DeleteConfirmationModal } from "../components/DeleteConfirmationModal";
+import { StatusFilter } from "../components/ProjectDetailsPage/StatusFilter";
+import { TaskList } from "../components/ProjectDetailsPage/TaskList";
+import { AddTaskModal } from "../components/ProjectDetailsPage/AddTaskModal";
+import { DeleteConfirmationModal } from "../components/ProjectDetailsPage/DeleteConfirmationModal";
 import Project from "../types/Project";
 import { Task } from "../types/Task";
 

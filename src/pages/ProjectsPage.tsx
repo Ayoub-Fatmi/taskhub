@@ -1,8 +1,8 @@
 import { useState } from "react";
 import useFetch from "../hooks/usefetch";
-import ProjectForm from "../components/ProjectForm";
-import ProjectCard from "../components/ProjectCard";
-import DeleteModal from "../components/DeleteModal";
+import ProjectForm from "../components/ProjectPage/ProjectForm";
+import ProjectCard from "../components/ProjectPage/ProjectCard";
+import DeleteModal from "../components/ProjectPage/DeleteModal";
 import {
     addProject,
     deleteProject

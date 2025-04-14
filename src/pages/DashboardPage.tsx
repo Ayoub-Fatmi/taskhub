@@ -1,8 +1,8 @@
 import { useDashboardData } from '../hooks/useDashboardData';
-import { LoadingSpinner } from '../components/LoadingSpinner';
-import { ErrorDisplay } from '../components/ErrorDisplay';
-import { StatsCards } from '../components/StatsCards';
-import { ProjectsTable } from '../components/ProjectsTable';
+import { LoadingSpinner } from '../components/Common/LoadingSpinner';
+import { ErrorDisplay } from '../components/Common/ErrorDisplay';
+import { StatsCards } from '../components/DashboardPage/StatsCards';
+import { ProjectsTable } from '../components/DashboardPage/ProjectsTable';
 
 const DashboardPage = () => {
   const { projects, tasks, loading, error } = useDashboardData();
