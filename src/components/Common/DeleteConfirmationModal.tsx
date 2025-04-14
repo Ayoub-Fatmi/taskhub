@@ -1,21 +1,19 @@
 type DeleteConfirmationModalProps = {
-    isOpen: boolean;
+  DeletedItem: string;
     onClose: () => void;
     onConfirm: () => void;
   };
   
   export const DeleteConfirmationModal = ({ 
-    isOpen, 
+    DeletedItem,
     onClose, 
-    onConfirm 
-  }: DeleteConfirmationModalProps) => {
-    if (!isOpen) return null;
-  
+    onConfirm
+  }: DeleteConfirmationModalProps) => {  
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-lg p-6 max-w-md w-full">
           <h3 className="text-lg font-semibold mb-4">Confirm Deletion</h3>
-          <p className="mb-6">Are you sure you want to delete this task?</p>
+          <p className="mb-6">Are you sure you want to delete <strong>{DeletedItem}</strong>?</p>
           <div className="flex justify-end space-x-4">
             <button
               onClick={onClose}

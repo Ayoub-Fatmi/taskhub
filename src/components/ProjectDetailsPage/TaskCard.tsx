@@ -1,9 +1,9 @@
-import { Task } from "../types/Task";
+import { Task } from "../../types/Task";
 
 type TaskCardProps = {
   task: Task;
   onStatusChange: (taskId: string, newStatus: Task["status"]) => void;
-  onDeleteClick: (taskId: string) => void;
+  onDeleteClick: (taskId: string, taskTitle: string) => void;
 };
 
 export const TaskCard = ({ task, onStatusChange, onDeleteClick }: TaskCardProps) => (
@@ -44,7 +44,7 @@ export const TaskCard = ({ task, onStatusChange, onDeleteClick }: TaskCardProps)
           <option value="completed">Completed</option>
         </select>
         <button
-          onClick={() => onDeleteClick(task.id)}
+          onClick={() => onDeleteClick(task.id, task.title)}
           className="text-xs bg-red-500 hover:bg-red-700 text-white px-2 py-1 rounded"
         >
           Delete

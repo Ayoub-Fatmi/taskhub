@@ -9,7 +9,7 @@ import {
 import { StatusFilter } from "../components/ProjectDetailsPage/StatusFilter";
 import { TaskList } from "../components/ProjectDetailsPage/TaskList";
 import { AddTaskModal } from "../components/ProjectDetailsPage/AddTaskModal";
-import { DeleteConfirmationModal } from "../components/ProjectDetailsPage/DeleteConfirmationModal";
+import { DeleteConfirmationModal } from "../components/Common/DeleteConfirmationModal";
 import Project from "../types/Project";
 import { Task } from "../types/Task";
 
@@ -17,7 +17,7 @@ function ProjectDetailsPage() {
     const { projectId } = useParams<{ projectId: string }>();
   const [statusFilter, setStatusFilter] = useState<"all" | Task["status"]>("all");
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
-  const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
+  const [taskToDelete, setTaskToDelete] = useState<{id: string, title: string} | null>(null);
 
   const {
     data: project,
@@ -68,7 +68,7 @@ function ProjectDetailsPage() {
     if (!taskToDelete) return;
     
     try {
-      await deleteTask(taskToDelete);
+      await deleteTask(taskToDelete.id);
       setTaskToDelete(null);
       refetchTasks();
     } catch (error) {
@@ -159,7 +159,7 @@ function ProjectDetailsPage() {
                 <TaskList
                     tasks={filteredTasks}
                     onStatusChange={handleStatusChange}
-                    onDeleteClick={setTaskToDelete}
+                    onDeleteClick={(taskId, taskTitle) => setTaskToDelete({id: taskId, title: taskTitle})}
                 />
             </div>
 
@@ -168,12 +168,13 @@ function ProjectDetailsPage() {
                 onClose={() => setShowAddTaskModal(false)}
                 onSubmit={handleAddTask}
             />
-
-            <DeleteConfirmationModal
-                isOpen={taskToDelete !== null}
-                onClose={() => setTaskToDelete(null)}
-                onConfirm={handleDeleteTask}
-            />
+            {taskToDelete && (
+                <DeleteConfirmationModal
+                    DeletedItem={taskToDelete?.title || ''}
+                    onClose={() => setTaskToDelete(null)}
+                    onConfirm={handleDeleteTask}
+                />
+            )}
         </div>
     );
 }

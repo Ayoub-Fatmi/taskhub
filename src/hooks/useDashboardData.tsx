@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Task } from '../types/Task';
 import { Project } from '../types/Project';
 
@@ -8,8 +8,7 @@ export const useDashboardData = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = useCallback( async () => {
       try {
         setLoading(true);
         const [projectsRes, tasksRes] = await Promise.all([
@@ -30,10 +29,15 @@ export const useDashboardData = () => {
       } finally {
         setLoading(false);
       }
-    };
+    }, []);
 
-    fetchData();
-  }, []);
 
-  return { projects, tasks, loading, error };
+
+  useEffect(() => {
+    setTimeout(() => {
+        fetchData();
+    }, 1000);
+}, [fetchData]);
+
+  return { projects, tasks, loading, error, refetch: fetchData };
 };

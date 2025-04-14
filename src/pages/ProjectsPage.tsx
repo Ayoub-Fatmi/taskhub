@@ -2,18 +2,12 @@ import { useState } from "react";
 import useFetch from "../hooks/usefetch";
 import ProjectForm from "../components/ProjectPage/ProjectForm";
 import ProjectCard from "../components/ProjectPage/ProjectCard";
-import DeleteModal from "../components/ProjectPage/DeleteModal";
 import {
     addProject,
     deleteProject
 } from '../api/projectApi';
-
-type Project = {
-    id: number;
-    name: string;
-    description: string;
-    createdAt: string;
-};
+import { Project } from "../types/Project";
+import { DeleteConfirmationModal } from "../components/Common/DeleteConfirmationModal";
 
 function ProjectsPage() {
     const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
@@ -97,9 +91,9 @@ function ProjectsPage() {
             </div>
 
             {projectToDelete && (
-                <DeleteModal
-                    projectName={projectToDelete.name}
-                    onCancel={() => setProjectToDelete(null)}
+                <DeleteConfirmationModal
+                    DeletedItem={projectToDelete.name}
+                    onClose={() => setProjectToDelete(null)}
                     onConfirm={handleConfirmDelete}
                 />
             )}

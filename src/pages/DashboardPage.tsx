@@ -5,10 +5,10 @@ import { StatsCards } from '../components/DashboardPage/StatsCards';
 import { ProjectsTable } from '../components/DashboardPage/ProjectsTable';
 
 const DashboardPage = () => {
-  const { projects, tasks, loading, error } = useDashboardData();
+  const { projects, tasks, loading, error, refetch: fetchData } = useDashboardData();
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
+  if (error) return <ErrorDisplay error={error} onRetry={fetchData} />;
 
   const totalProjects = projects.length;
   const totalTasks = tasks.length;
