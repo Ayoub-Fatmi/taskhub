@@ -1,4 +1,5 @@
 const API_BASE_URL = "http://localhost:3001";
+import { Task } from '../types/Task';
 
 export const addProject = async (project: {
   name: string;
@@ -29,7 +30,9 @@ export const deleteProject = async (id: string) => {
   
   const tasks = await tasksResponse.json();
   
-  const deleteTasksPromises = tasks.map(task => 
+
+
+  const deleteTasksPromises = tasks.map((task: Task) => 
     fetch(`${API_BASE_URL}/tasks/${task.id}`, {
       method: "DELETE"
     })
