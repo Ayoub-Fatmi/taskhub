@@ -9,6 +9,7 @@ import {
 import { Project } from "../types/Project";
 import { DeleteConfirmationModal } from "../components/Common/DeleteConfirmationModal";
 import { LoadingSpinner } from "../components/Common/LoadingSpinner";
+import { ErrorDisplay } from "../components/Common/ErrorDisplay";
 
 function ProjectsPage() {
     const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
@@ -45,15 +46,7 @@ function ProjectsPage() {
         );
     } else if (error) {
         return (
-
-            <main className=" h-screen flex flex-grow justify-center items-center">
-                <div className="error-container">
-                    <div>Error: {error}</div>
-                    <button onClick={refetch} className="retry-button">
-                        Retry
-                    </button>
-                </div>
-            </main>
+            <ErrorDisplay error={error} onRetry={refetch} />
         );
     }
 

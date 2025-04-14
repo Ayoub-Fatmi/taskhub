@@ -13,6 +13,7 @@ import { DeleteConfirmationModal } from "../components/Common/DeleteConfirmation
 import Project from "../types/Project";
 import { Task } from "../types/Task";
 import { LoadingSpinner } from "../components/Common/LoadingSpinner";
+import { ErrorDisplay } from "../components/Common/ErrorDisplay";
 
 function ProjectDetailsPage() {
     const { projectId } = useParams<{ projectId: string }>();
@@ -85,33 +86,13 @@ function ProjectDetailsPage() {
 
     if (projectError) {
         return (
-            <main className="h-screen flex flex-grow justify-center items-center">
-                <div className="error-container">
-                    <div>Error: {projectError}</div>
-                    <button
-                        onClick={refetchProject}
-                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    >
-                        Retry
-                    </button>
-                </div>
-            </main>
+            <ErrorDisplay error={projectError} onRetry={refetchProject} />
         );
     }
 
     if (tasksError) {
         return (
-            <main className="h-screen flex flex-grow justify-center items-center">
-                <div className="error-container">
-                    <div>Error: {tasksError}</div>
-                    <button
-                        onClick={refetchTasks}
-                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    >
-                        Retry
-                    </button>
-                </div>
-            </main>
+            <ErrorDisplay error={tasksError} onRetry={refetchTasks} />
         );
     }
 

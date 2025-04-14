@@ -6,6 +6,8 @@ function useFetch<T>(url: string) {
     const [error, setError] = useState<string | null>(null);
 
     const fetchData = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -13,8 +15,8 @@ function useFetch<T>(url: string) {
             }
             const json = await response.json();
             setData(json);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An unknown error occurred');
         } finally {
             setIsLoading(false);
         }
