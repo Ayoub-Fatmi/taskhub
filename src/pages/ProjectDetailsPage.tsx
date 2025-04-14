@@ -96,13 +96,6 @@ function ProjectDetailsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* <div className="mb-8 bg-white p-6 rounded-lg shadow">
-                <h1 className="text-3xl font-bold mb-2">{project?.name}</h1>
-                <p className="text-gray-600 mb-4">{project?.description}</p>
-                <div className="text-sm text-gray-500">
-                    Created at: {new Date(project?.createdAt || "").toLocaleDateString()}
-                </div>
-            </div> */}
       <div className="mb-8 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
           <div>

@@ -7,7 +7,12 @@ import { ProjectsTable } from '../components/DashboardPage/ProjectsTable';
 const DashboardPage = () => {
   const { projects, tasks, loading, error, refetch: fetchData } = useDashboardData();
 
-  if (loading) return <LoadingSpinner />;
+  if (loading) return (
+    <div className="flex items-center justify-center h-[calc(100vh-200px)]">
+      <LoadingSpinner />
+    </div>
+  );
+  
   if (error) return <ErrorDisplay error={error} onRetry={fetchData} />;
 
   const totalProjects = projects.length;
@@ -30,8 +35,15 @@ const DashboardPage = () => {
   }).sort((a, b) => b.taskStats.total - a.taskStats.total);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Project Dashboard</h1>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Project Dashboard</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-2">
+            Overview of all projects and tasks
+          </p>
+        </div>
+      </div>
 
       <StatsCards
         totalProjects={totalProjects}
@@ -41,8 +53,10 @@ const DashboardPage = () => {
         todoTasks={todoTasks}
       />
 
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-xl font-semibold mb-4">Projects Overview</h2>
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Projects Overview</h2>
+        </div>
         <ProjectsTable projects={projectsWithStats} />
       </div>
     </div>
