@@ -1,6 +1,8 @@
 # TaskHub - Modern Project Management Dashboard
 
-| ![TaskHub Logo](./src/assets/logo.png) | ![TaskHub Logo light](./src/assets/logo_light.png) | 
+| Dark Mode Logo | Light Mode Logo |
+|----------------|-----------------|
+| ![Dark Logo](./src/assets/logo.png) | ![Light Logo](./src/assets/logo_light.png) |
 
 TaskHub is a sleek project management application built with React, TypeScript, and Tailwind CSS, featuring a complete dark/light theme system.
 
