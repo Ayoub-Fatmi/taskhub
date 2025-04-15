@@ -1,19 +1,30 @@
-import { useDashboardData } from '../hooks/useDashboardData';
 import { LoadingSpinner } from '../components/Common/LoadingSpinner';
 import { ErrorDisplay } from '../components/Common/ErrorDisplay';
 import { StatsCards } from '../components/DashboardPage/StatsCards';
 import { ProjectsTable } from '../components/DashboardPage/ProjectsTable';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { fetchProjectsStart } from '../store/projectSlice';
+import { useEffect } from 'react';
 
 const DashboardPage = () => {
-  const { projects, tasks, loading, error, refetch: fetchData } = useDashboardData();
+  const dispatch = useAppDispatch();
+  const { projects, loading, error, initialized } = useAppSelector((state) => state.projects);
+  const {tasks, loading: tasksLoading, error: tasksError, initialized: tasksInitialized} = useAppSelector((state) => state.tasks);
+    
 
-  if (loading) return (
+  useEffect(() => {
+    console.log("Current projects in Redux:", projects);
+    console.log("Current tasks in Redux:", tasks);
+    
+  }, [projects, tasks]);
+
+  if (!initialized || !tasksInitialized || loading || tasksLoading) return (
     <div className="flex items-center justify-center h-[calc(100vh-200px)]">
       <LoadingSpinner />
     </div>
   );
   
-  if (error) return <ErrorDisplay error={error} onRetry={fetchData} />;
+  if (error || tasksError) return <ErrorDisplay error={error || tasksError || "Failed to fetch data"} onRetry={() => dispatch(fetchProjectsStart())} />;
 
   const totalProjects = projects.length;
   const totalTasks = tasks.length;
@@ -21,6 +32,7 @@ const DashboardPage = () => {
   const inProgressTasks = tasks.filter(task => task.status === 'in_progress').length;
   const todoTasks = tasks.filter(task => task.status === 'to_do').length;
 
+  
   const projectsWithStats = projects.map(project => {
     const projectTasks = tasks.filter(task => task.projectId === project.id);
     return {
@@ -33,6 +45,9 @@ const DashboardPage = () => {
       }
     };
   }).sort((a, b) => b.taskStats.total - a.taskStats.total);
+  console.log("projects", projects);
+  console.log("tasks", tasks);
+
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

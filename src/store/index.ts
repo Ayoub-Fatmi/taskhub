@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import projectReducer from './projectSlice';
-import taskReducer from './taskSlice';
+import projectReducer, { initializeProjects } from './projectSlice';
+import taskReducer, { initializeTasks } from './taskSlice';
 
 export const store = configureStore({
   reducer: {
@@ -8,6 +8,8 @@ export const store = configureStore({
     tasks: taskReducer
   }
 });
+store.dispatch(initializeProjects());
+store.dispatch(initializeTasks());
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

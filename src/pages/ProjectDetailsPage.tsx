@@ -1,72 +1,73 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../hooks/usefetch";
-import { addTask, updateTaskStatus, deleteTask } from "../api/taskApi";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { StatusFilter } from "../components/ProjectDetailsPage/StatusFilter";
 import { TaskList } from "../components/ProjectDetailsPage/TaskList";
 import { AddTaskModal } from "../components/ProjectDetailsPage/AddTaskModal";
 import { DeleteConfirmationModal } from "../components/Common/DeleteConfirmationModal";
-import Project from "../types/Project";
 import { Task } from "../types/Task";
 import { LoadingSpinner } from "../components/Common/LoadingSpinner";
 import { ErrorDisplay } from "../components/Common/ErrorDisplay";
+import { 
+  fetchTasksFailure,
+  addTask as addTaskAction,
+  updateTaskStatus as updateTaskStatusAction,
+  deleteTask as deleteTaskAction
+} from "../store/taskSlice";
+import { addTask as addTaskApi, updateTaskStatus, deleteTask } from "../api/taskApi";
 
 function ProjectDetailsPage() {
   const { projectId } = useParams<{ projectId: string }>();
-  const [statusFilter, setStatusFilter] = useState<"all" | Task["status"]>(
-    "all"
-  );
+  const dispatch = useAppDispatch();
+  const [statusFilter, setStatusFilter] = useState<"all" | Task["status"]>("all");
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
-  const [taskToDelete, setTaskToDelete] = useState<{
-    id: string;
-    title: string;
-  } | null>(null);
+  const [taskToDelete, setTaskToDelete] = useState<{ id: string; title: string } | null>(null);
 
-  const {
-    data: project,
-    isLoading: loadingProject,
-    error: projectError,
-    refetch: refetchProject,
-  } = useFetch<Project>(`http://localhost:3001/projects/${projectId}`);
+  const { projects, loading: projectsLoading, error: projectsError } = useAppSelector((state) => state.projects);
+  const { tasks, loading: tasksLoading, error: tasksError } = useAppSelector((state) => state.tasks);
 
-  const {
-    data: tasks = [],
-    isLoading: loadingTasks,
-    error: tasksError,
-    refetch: refetchTasks,
-  } = useFetch<Task[]>(`http://localhost:3001/tasks?projectId=${projectId}`);
 
-  const filteredTasks = (tasks ?? []).filter((task) =>
-    statusFilter === "all" ? true : task.status === statusFilter
-  );
+  console.log("tasks ", tasks);
+  console.log("projects ", projects);
+
+  const project = projects.find(p => p.id === projectId);
+
+  console.log(project);
+
+  const filteredTasks = tasks
+    .filter(task => task.projectId === projectId)
+    .filter(task => statusFilter === "all" ? true : task.status === statusFilter);
+
+  console.log("filteredTasks", filteredTasks);
+
 
   const handleAddTask = async (task: {
     title: string;
     description: string;
     priority: "low" | "medium" | "high";
   }) => {
+    if (!projectId) return;
+    
     try {
-      await addTask({
-        projectId: projectId || "",
+      const newTask = await addTaskApi({
+        projectId,
         ...task,
-        status: "to_do",
+        status: "to_do"
       });
+      dispatch(addTaskAction(newTask));
       setShowAddTaskModal(false);
-      refetchTasks();
+      console.log("handleAdd", tasks )
     } catch (error) {
-      console.error("Error adding task:", error);
+      dispatch(fetchTasksFailure((error as Error).message));
     }
   };
 
-  const handleStatusChange = async (
-    taskId: string,
-    newStatus: Task["status"]
-  ) => {
+  const handleStatusChange = async (taskId: string, newStatus: Task["status"]) => {
     try {
       await updateTaskStatus(taskId, newStatus);
-      refetchTasks();
+      dispatch(updateTaskStatusAction({ id: taskId, status: newStatus }));
     } catch (error) {
-      console.error("Error updating task status:", error);
+      dispatch(fetchTasksFailure((error as Error).message));
     }
   };
 
@@ -75,23 +76,27 @@ function ProjectDetailsPage() {
 
     try {
       await deleteTask(taskToDelete.id);
+      dispatch(deleteTaskAction(taskToDelete.id));
       setTaskToDelete(null);
-      refetchTasks();
     } catch (error) {
-      console.error("Error deleting task:", error);
+      dispatch(fetchTasksFailure((error as Error).message));
     }
   };
 
-  if (loadingProject || loadingTasks) {
+  if (projectsLoading || tasksLoading) {
     return <LoadingSpinner />;
   }
 
-  if (projectError) {
-    return <ErrorDisplay error={projectError} onRetry={refetchProject} />;
+  if (projectsError) {
+    return <ErrorDisplay error={projectsError} onRetry={() => window.location.reload()} />;
   }
 
   if (tasksError) {
-    return <ErrorDisplay error={tasksError} onRetry={refetchTasks} />;
+    return <ErrorDisplay error={tasksError} onRetry={() => window.location.reload()} />;
+  }
+
+  if (!project) {
+    return <ErrorDisplay error="Project not found" onRetry={() => window.location.reload()} />;
   }
 
   return (
@@ -100,7 +105,7 @@ function ProjectDetailsPage() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              {project?.name}
+              {project.name}
             </h1>
             <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
               <svg
@@ -119,20 +124,17 @@ function ProjectDetailsPage() {
               </svg>
               <span>
                 Created:{" "}
-                {new Date(project?.createdAt || "").toLocaleDateString(
-                  "en-US",
-                  {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  }
-                )}
+                {new Date(project.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
               </span>
             </div>
           </div>
         </div>
 
-        {project?.description && (
+        {project.description && (
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
             {project.description}
           </p>
@@ -147,7 +149,7 @@ function ProjectDetailsPage() {
 
       <div>
         <h2 className="text-2xl font-semibold mb-4 dark:text-white">
-          Tasks ({filteredTasks?.length})
+          Tasks ({filteredTasks.length})
         </h2>
         <TaskList
           tasks={filteredTasks}
@@ -163,9 +165,10 @@ function ProjectDetailsPage() {
         onClose={() => setShowAddTaskModal(false)}
         onSubmit={handleAddTask}
       />
+
       {taskToDelete && (
         <DeleteConfirmationModal
-          DeletedItem={taskToDelete?.title || ""}
+          DeletedItem={taskToDelete.title}
           onClose={() => setTaskToDelete(null)}
           onConfirm={handleDeleteTask}
         />
