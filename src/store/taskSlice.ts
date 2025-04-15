@@ -28,14 +28,6 @@ const taskSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    fetchTasksStart(state) {
-      state.loading = true;
-      state.error = null;
-    },
-    fetchTasksSuccess(state, action: PayloadAction<Task[]>) {
-      state.tasks = action.payload;
-      state.loading = false;
-    },
     fetchTasksFailure(state, action: PayloadAction<string>) {
       state.loading = false;
       state.error = action.payload;
@@ -77,8 +69,6 @@ const taskSlice = createSlice({
 });
 
 export const {
-  fetchTasksStart,
-  fetchTasksSuccess,
   fetchTasksFailure,
   addTask,
   updateTaskStatus,

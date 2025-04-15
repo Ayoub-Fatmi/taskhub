@@ -30,27 +30,17 @@ const projectSlice = createSlice({
   initialState,
   reducers: {
     fetchProjectsStart(state) {
-      console.log("fetchProjectsStart");
       state.loading = true;
       state.error = null;
     },
-    fetchProjectsSuccess(state, action: PayloadAction<Project[]>) {
-      console.log("fetchProjectsSuccess");
-      state.projects = action.payload;
-      state.loading = false;
-    },
     fetchProjectsFailure(state, action: PayloadAction<string>) {
-      console.log("fetchProjectsFailure");
       state.loading = false;
       state.error = action.payload;
     },
     addProject(state, action: PayloadAction<Project>) {
-      console.log("addProject");
       state.projects.push(action.payload);
-      console.log("Current projects in Redux:", state.projects);
     },
     deleteProject(state, action: PayloadAction<string>) {
-      console.log("deleteProject");
       state.projects = state.projects.filter(project => project.id !== action.payload);
     }
   },
@@ -77,7 +67,6 @@ const projectSlice = createSlice({
 
 export const {
   fetchProjectsStart,
-  fetchProjectsSuccess,
   fetchProjectsFailure,
   addProject,
   deleteProject
