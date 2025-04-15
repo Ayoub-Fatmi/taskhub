@@ -33,9 +33,7 @@ const taskSlice = createSlice({
       state.error = action.payload;
     },
     addTask(state, action: PayloadAction<Task>) {
-      console.log("addTask", state.tasks);
       state.tasks.push(action.payload);
-      console.log("addTask", state.tasks);
     },
     updateTaskStatus(state, action: PayloadAction<{id: string; status: Task['status']}>) {
       const task = state.tasks.find(t => t.id === action.payload.id);
@@ -50,18 +48,15 @@ const taskSlice = createSlice({
   extraReducers: (builder) => {
       builder
         .addCase(initializeTasks.pending, (state) => {
-          console.log("initializeTasks.pending");
           state.loading = true;
           state.error = null;
         })
         .addCase(initializeTasks.fulfilled, (state, action) => {
-          console.log("initializeTasks.fulfilled");
           state.tasks = action.payload;
           state.loading = false;
           state.initialized = true;
         })
         .addCase(initializeTasks.rejected, (state, action) => {
-          console.log("initializeTasks.rejected");
           state.loading = false;
           state.error = action.error.message || 'Failed to initialize Tasks';
         });

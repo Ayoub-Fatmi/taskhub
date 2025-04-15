@@ -47,18 +47,15 @@ const projectSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(initializeProjects.pending, (state) => {
-        console.log("initializeProjects.pending");
         state.loading = true;
         state.error = null;
       })
       .addCase(initializeProjects.fulfilled, (state, action) => {
-        console.log("initializeProjects.fulfilled");
         state.projects = action.payload;
         state.loading = false;
         state.initialized = true;
       })
       .addCase(initializeProjects.rejected, (state, action) => {
-        console.log("initializeProjects.rejected");
         state.loading = false;
         state.error = action.error.message || 'Failed to initialize projects';
       });

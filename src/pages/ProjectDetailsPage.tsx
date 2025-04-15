@@ -26,20 +26,11 @@ function ProjectDetailsPage() {
   const { projects, loading: projectsLoading, error: projectsError } = useAppSelector((state) => state.projects);
   const { tasks, loading: tasksLoading, error: tasksError } = useAppSelector((state) => state.tasks);
 
-
-  console.log("tasks ", tasks);
-  console.log("projects ", projects);
-
   const project = projects.find(p => p.id === projectId);
-
-  console.log(project);
 
   const filteredTasks = tasks
     .filter(task => task.projectId === projectId)
     .filter(task => statusFilter === "all" ? true : task.status === statusFilter);
-
-  console.log("filteredTasks", filteredTasks);
-
 
   const handleAddTask = async (task: {
     title: string;
@@ -56,7 +47,6 @@ function ProjectDetailsPage() {
       });
       dispatch(addTaskAction(newTask));
       setShowAddTaskModal(false);
-      console.log("handleAdd", tasks )
     } catch (error) {
       dispatch(fetchTasksFailure((error as Error).message));
     }

@@ -4,20 +4,12 @@ import { StatsCards } from '../components/DashboardPage/StatsCards';
 import { ProjectsTable } from '../components/DashboardPage/ProjectsTable';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { fetchProjectsStart } from '../store/projectSlice';
-import { useEffect } from 'react';
 
 const DashboardPage = () => {
   const dispatch = useAppDispatch();
   const { projects, loading, error, initialized } = useAppSelector((state) => state.projects);
   const {tasks, loading: tasksLoading, error: tasksError, initialized: tasksInitialized} = useAppSelector((state) => state.tasks);
     
-
-  useEffect(() => {
-    console.log("Current projects in Redux:", projects);
-    console.log("Current tasks in Redux:", tasks);
-    
-  }, [projects, tasks]);
-
   if (!initialized || !tasksInitialized || loading || tasksLoading) return (
     <div className="flex items-center justify-center h-[calc(100vh-200px)]">
       <LoadingSpinner />
@@ -45,9 +37,6 @@ const DashboardPage = () => {
       }
     };
   }).sort((a, b) => b.taskStats.total - a.taskStats.total);
-  console.log("projects", projects);
-  console.log("tasks", tasks);
-
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
