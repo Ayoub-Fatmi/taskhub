@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ThemeToggle } from './ThemeToggle';
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
@@ -39,8 +40,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
             >
               Projects
             </Link>
+            <ThemeToggle />
           </nav>
-          
         </div>
       </div>
     </header>

@@ -1,54 +1,42 @@
-# React + TypeScript + Vite
+# TaskHub - Project Management Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![TaskHub Screenshot](./screenshot.png) <!-- Add a screenshot if available -->
 
-Currently, two official plugins are available:
+TaskHub is a modern project management application built with React, TypeScript, Redux Toolkit, and Tailwind CSS. It helps teams organize projects, track tasks, and monitor progress with an intuitive interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Project Management**
+  - Create, view, and delete projects
+  - Detailed project overview pages
+  - Project statistics and progress tracking
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Task System**
+  - Create tasks with titles, descriptions, and priorities
+  - Update task status (To Do, In Progress, Completed)
+  - Filter tasks by status
+  - Delete tasks with confirmation
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Dashboard**
+  - Overview of all projects and tasks
+  - Visual statistics and progress indicators
+  - Quick access to recent activities
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Modern UI**
+  - Responsive design for all devices
+  - Dark mode support
+  - Interactive elements with smooth animations
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Technologies Used
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- **Frontend**
+  - React 18
+  - TypeScript
+  - Redux Toolkit (State management)
+  - React Router (Routing)
+  - Tailwind CSS (Styling)
+  - React Icons (Icon library)
+
+- **Backend**
+  - JSON Server (Mock API)
+  - RESTful API endpoints
