@@ -1,13 +1,6 @@
 const API_BASE_URL = "http://localhost:3001";
 import { Task } from '../types/Task';
 
-export const getProjects = async () => {
-  const response = await fetch(`${API_BASE_URL}/projects`);
-  if (!response.ok) {
-    throw new Error("Failed to fetch projects");
-  }
-  return await response.json();
-}
 export const addProject = async (project: {
   name: string;
   description: string;
