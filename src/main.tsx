@@ -5,7 +5,7 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store} from './store/index.ts'
-import { ThemeProvider } from './context/ThemeContext.tsx'
+import ThemeProvider from './components/Common/ThemeProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
