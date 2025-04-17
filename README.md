@@ -1,42 +1,90 @@
-# TaskHub - Project Management Application
+# TaskHub - Modern Project Management Dashboard
 
-![TaskHub Screenshot](./screenshot.png) <!-- Add a screenshot if available -->
+| Dark Mode Logo | Light Mode Logo |
+|----------------|-----------------|
+| ![Dark Logo](./src/assets/logo.png) | ![Light Logo](./src/assets/logo_light.png) |
 
-TaskHub is a modern project management application built with React, TypeScript, Redux Toolkit, and Tailwind CSS. It helps teams organize projects, track tasks, and monitor progress with an intuitive interface.
+TaskHub is a sleek project management application built with React, TypeScript, and Tailwind CSS, featuring a complete dark/light theme system.
 
-## Features
+## 📱 Screenshots
+
+### Dashboard Views
+| Dark Mode | Light Mode |
+|-----------|------------|
+| ![Dashboard Dark](./src/assets/Dashboard.png) | ![Dashboard Light](./src/assets/Dashboard_light.png) |
+
+### Projects Page
+| Dark Mode | Light Mode |
+|-----------|------------|
+| ![Projects Dark](./src/assets/ProjectsPage.png) | ![Projects Light](./src/assets/ProjectsPage_light.png) |
+
+### Project Details
+| Dark Mode | Light Mode |
+|-----------|------------|
+| ![Details Dark](./src/assets/ProjectDetailsPage.png) | ![Details Light](./src/assets/ProjectDetailsPage_light.png) |
+
+### Key Features
+| Feature | Preview |
+|---------|---------|
+| Add Tasks | ![Add Task](./src/assets/AddTask.png) |
+| Delete Confirmation | ![Delete Modal](./src/assets/DeleteConfirmation.png) |
+
+## ✨ Features
+
+- **Full Theme Support**
+  - System preference detection
+  - Manual light/dark toggle
+  - Persistent theme settings
+  - Smooth transitions
 
 - **Project Management**
-  - Create, view, and delete projects
-  - Detailed project overview pages
-  - Project statistics and progress tracking
+  - Create/view/delete projects
+  - Task status tracking (Todo/In Progress/Done)
+  - Priority levels (High/Medium/Low)
 
-- **Task System**
-  - Create tasks with titles, descriptions, and priorities
-  - Update task status (To Do, In Progress, Completed)
-  - Filter tasks by status
-  - Delete tasks with confirmation
+- **Interactive UI**
+  - Modern dashboard with statistics
+  - Responsive design
+  - Animated theme toggle
+  - Confirmation dialogs
 
-- **Dashboard**
-  - Overview of all projects and tasks
-  - Visual statistics and progress indicators
-  - Quick access to recent activities
+## 🛠️ Technologies
 
-- **Modern UI**
-  - Responsive design for all devices
-  - Dark mode support
-  - Interactive elements with smooth animations
+**Frontend**
+- React 19 + TypeScript
+- Redux Toolkit (State management)
+- React Router 
+- Tailwind CSS + Dark Mode
+- Lucide Icons
 
-## Technologies Used
+**Backend**
+- JSON Server (Mock API)
+- RESTful endpoints
 
-- **Frontend**
-  - React 18
-  - TypeScript
-  - Redux Toolkit (State management)
-  - React Router (Routing)
-  - Tailwind CSS (Styling)
-  - React Icons (Icon library)
+## 🚀 Getting Started
 
-- **Backend**
-  - JSON Server (Mock API)
-  - RESTful API endpoints
+### Prerequisites
+- Node.js v16 or higher
+- a package manager (using npm for this example)
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/taskhub.git
+   cd taskhub
+   ```
+
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3. Launch the mock API:
+    ```bash
+    npm run server:mock
+    ```
+
+4. (In a separate terminal) Start the development server:
+    ```bash
+    npm run dev
+    ```
